@@ -339,11 +339,11 @@
 
     if (!fine || reduce) return;
 
-    // 3D Tilt Effect
+    // Restrained, subtle 3D tilt
     $$('[data-tilt]', root).forEach(function (el) {
       if (el.dataset.tiltOn) return;
       el.dataset.tiltOn = '1';
-      var max = parseFloat(el.dataset.tilt) || 8;
+      var max = parseFloat(el.dataset.tilt) || 4;
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect();
         var x = (e.clientX - r.left) / r.width - 0.5;
@@ -352,15 +352,15 @@
           gsap.to(el, {
             rotateY: x * max,
             rotateX: -y * max,
-            duration: 0.5,
+            duration: 0.45,
             ease: 'power2.out',
-            transformPerspective: 1000
+            transformPerspective: 1200
           });
         }
       });
       el.addEventListener('pointerleave', function () {
         if (hasGsap) {
-          gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'elastic.out(1, 0.5)' });
+          gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power2.out' });
         }
       });
     });
@@ -374,12 +374,12 @@
         var x = e.clientX - (r.left + r.width / 2);
         var y = e.clientY - (r.top + r.height / 2);
         if (hasGsap) {
-          gsap.to(b, { x: x * 0.22, y: y * 0.3, duration: 0.38, ease: 'power3.out' });
+          gsap.to(b, { x: x * 0.12, y: y * 0.15, duration: 0.35, ease: 'power3.out' });
         }
       });
       b.addEventListener('pointerleave', function () {
         if (hasGsap) {
-          gsap.to(b, { x: 0, y: 0, duration: 0.65, ease: 'elastic.out(1, 0.4)' });
+          gsap.to(b, { x: 0, y: 0, duration: 0.5, ease: 'power2.out' });
         }
       });
     });
@@ -432,15 +432,19 @@
       });
   };
 
-  // Upgraded Product Card Template
+  // Upgraded Product Card Template (Inspired by Reference Image 2 Status Pill)
   SM.cardHTML = function (p) {
     var url = window.SM_PRODUCT_URL(p.slug);
     var img = window.SM_ASSET_URL(p.img);
-    var hot = /best|hot|new|auto|starter/i.test(p.badge || '');
+    var isHot = /best|hot|new/i.test(p.badge || '');
+    var pillClass = isHot ? 'status-pill orange' : 'status-pill active';
+    var pillText = p.badge || 'In Stock';
 
     return '<article class="pcard" data-tag="' + SM.esc(p.tag || '') + '">' +
       '<a class="thumb" href="' + SM.esc(url) + '" aria-label="' + SM.esc(p.name) + '">' +
-      (p.badge ? '<span class="badge' + (hot ? ' hot' : '') + '">' + SM.esc(p.badge) + '</span>' : '') +
+      '<div style="position:absolute;top:12px;left:12px;z-index:3">' +
+      '<span class="' + pillClass + '"><span class="led"></span> ' + SM.esc(pillText) + '</span>' +
+      '</div>' +
       '<img src="' + SM.esc(img) + '" alt="' + SM.esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.src=SM.fallbackImg(this.alt)">' +
       '</a>' +
       '<div class="pbody">' +
@@ -454,7 +458,7 @@
 
   SM.fallbackImg = function (title) {
     var t = String(title || 'SM Brand').replace(/[<>&"']/g, '').slice(0, 40);
-    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='640'><rect width='800' height='640' fill='#0e1015'/><rect x='300' y='200' width='200' height='200' rx='36' fill='#ff6b16'/><text x='400' y='325' font-family='sans-serif' font-weight='800' font-size='72' text-anchor='middle' fill='#ffffff'>SM</text><text x='400' y='500' font-family='sans-serif' font-weight='700' font-size='28' text-anchor='middle' fill='#a1a1aa'>" + t + "</text></svg>";
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='800' height='640'><rect width='800' height='640' fill='#17191C'/><rect x='300' y='200' width='200' height='200' rx='28' fill='#d96b32'/><text x='400' y='325' font-family='sans-serif' font-weight='800' font-size='72' text-anchor='middle' fill='#ffffff'>SM</text><text x='400' y='500' font-family='sans-serif' font-weight='600' font-size='26' text-anchor='middle' fill='#A5A5A0'>" + t + "</text></svg>";
     return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
   };
 

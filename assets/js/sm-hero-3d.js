@@ -1,17 +1,16 @@
 /* ============================================================
    SM BRAND — Three.js Hero 3D Industrial Strapping Machine
-   Procedural high-fidelity 3D automatic strapping machine (SM-801 / SM-601 Pro)
+   Procedural engineering 3D model of SM-801 Auto Arch Machine
    Features:
-   - High-precision industrial cabinet with orange brand accents
-   - Stainless steel roller table bed with cylindrical rollers
-   - Structural overhead strapping arch with track channel & warning decals
-   - Side-mounted strap dispenser reel with translucent flanges & orange PP coil
-   - Operator control console with glowing backlit LCD & industrial buttons
-   - Packaged carton box with strap wrapped tightly around it
-   - Dual-color status beacon tower (Run/Ready)
-   - Cinematic 3-point lighting + orange rim light + contact shadow plane
-   - Interactive mouse parallax, continuous idle breathing, hover/click cycle pulse
-   - Automatic WebGL detection and graceful fallback
+   - High-precision industrial cabinet with muted industrial orange accents (#D96B32)
+   - Brushed stainless steel table bed with individual cylindrical rollers
+   - Structural overhead arch with precision track channel
+   - Side-mounted strap dispenser reel with polycarbonate flanges & orange PP coil
+   - Operator console with backlit digital readout & emergency stop button
+   - Corrugated carton box strapped on the table bed
+   - Balanced studio lighting: key white light + soft fill + restrained warm rim
+   - Smooth mouse parallax and gentle idle breathing
+   - WebGL detection with graceful static fallback
    ============================================================ */
 (function () {
   'use strict';
@@ -31,18 +30,19 @@
 
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!window.THREE || !hasWebGL() || reduce) {
-      if (container) container.classList.add('fallback-mode');
+      var wrapper = document.getElementById('hero3dWrapper');
+      if (wrapper) wrapper.classList.add('fallback-mode');
       return;
     }
 
-    var width = container.clientWidth || 560;
-    var height = container.clientHeight || 560;
+    var width = container.clientWidth || 540;
+    var height = container.clientHeight || 540;
 
     // --- Scene, Camera, Renderer ---
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(3.4, 2.6, 4.4);
-    camera.lookAt(0, 0.5, 0);
+    var camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(3.4, 2.5, 4.3);
+    camera.lookAt(0, 0.45, 0);
 
     var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
@@ -50,90 +50,90 @@
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.05;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // --- Materials Palette ---
+    // --- Materials Palette (Industrial & Balanced) ---
     var darkSteelMat = new THREE.MeshStandardMaterial({
-      color: 0x14171d,
-      roughness: 0.38,
+      color: 0x181a1f,
+      roughness: 0.42,
       metalness: 0.72
     });
 
     var cabinetMat = new THREE.MeshStandardMaterial({
-      color: 0x181b22,
-      roughness: 0.42,
-      metalness: 0.65
+      color: 0x202328,
+      roughness: 0.52,
+      metalness: 0.55
     });
 
     var orangeAccentMat = new THREE.MeshStandardMaterial({
-      color: 0xff6b16,
-      roughness: 0.28,
-      metalness: 0.35,
-      emissive: 0xff4800,
-      emissiveIntensity: 0.15
+      color: 0xd96b32,
+      roughness: 0.35,
+      metalness: 0.25,
+      emissive: 0xd96b32,
+      emissiveIntensity: 0.05
     });
 
     var stainlessMat = new THREE.MeshStandardMaterial({
-      color: 0xd8dde4,
-      roughness: 0.18,
-      metalness: 0.92
+      color: 0xd2d6dc,
+      roughness: 0.22,
+      metalness: 0.88
     });
 
     var chromeMat = new THREE.MeshStandardMaterial({
-      color: 0xf0f2f5,
-      roughness: 0.1,
-      metalness: 0.98
+      color: 0xe8ecf0,
+      roughness: 0.12,
+      metalness: 0.95
     });
 
     var blackRubberMat = new THREE.MeshStandardMaterial({
-      color: 0x0a0b0d,
-      roughness: 0.85,
+      color: 0x121417,
+      roughness: 0.82,
       metalness: 0.05
     });
 
     var strapOrangeMat = new THREE.MeshStandardMaterial({
-      color: 0xff7300,
-      roughness: 0.3,
-      metalness: 0.1,
-      emissive: 0xff4000,
-      emissiveIntensity: 0.22
+      color: 0xd96b32,
+      roughness: 0.38,
+      metalness: 0.15,
+      emissive: 0xd96b32,
+      emissiveIntensity: 0.06
     });
 
     var reelFlangeMat = new THREE.MeshPhysicalMaterial({
-      color: 0xdde5ed,
+      color: 0xccd4dd,
       transparent: true,
-      opacity: 0.55,
-      roughness: 0.15,
-      transmission: 0.4,
+      opacity: 0.5,
+      roughness: 0.2,
+      transmission: 0.35,
       metalness: 0.1
     });
 
     var screenMat = new THREE.MeshStandardMaterial({
-      color: 0x051d1e,
-      emissive: 0x0fe3d8,
-      emissiveIntensity: 0.85,
-      roughness: 0.2
+      color: 0x091c1d,
+      emissive: 0x0ea5a0,
+      emissiveIntensity: 0.6,
+      roughness: 0.25
     });
 
     var greenBtnMat = new THREE.MeshStandardMaterial({
       color: 0x15803d,
       emissive: 0x22c55e,
-      emissiveIntensity: 0.75,
-      roughness: 0.3
+      emissiveIntensity: 0.45,
+      roughness: 0.35
     });
 
     var redBtnMat = new THREE.MeshStandardMaterial({
       color: 0xb91c1c,
       emissive: 0xef4444,
-      emissiveIntensity: 0.55,
-      roughness: 0.3
+      emissiveIntensity: 0.35,
+      roughness: 0.35
     });
 
     var cartonMat = new THREE.MeshStandardMaterial({
-      color: 0xc89d66,
-      roughness: 0.78,
+      color: 0xc49d68,
+      roughness: 0.75,
       metalness: 0.02
     });
 
@@ -154,16 +154,16 @@
     cabinetMesh.receiveShadow = true;
     machine.add(cabinetMesh);
 
-    // Front access door seam & handle
+    // Front maintenance access door & handle
     var doorFaceGeo = new THREE.BoxGeometry(cabinetWidth * 0.75, cabinetHeight * 0.8, 0.02);
     var doorFaceMesh = new THREE.Mesh(doorFaceGeo, darkSteelMat);
     doorFaceMesh.position.set(0, cabinetHeight * 0.48, cabinetDepth / 2 + 0.012);
     doorFaceMesh.castShadow = true;
     machine.add(doorFaceMesh);
 
-    var doorHandleGeo = new THREE.BoxGeometry(0.04, 0.22, 0.05);
+    var doorHandleGeo = new THREE.BoxGeometry(0.04, 0.22, 0.04);
     var doorHandle = new THREE.Mesh(doorHandleGeo, chromeMat);
-    doorHandle.position.set(cabinetWidth * 0.28, cabinetHeight * 0.55, cabinetDepth / 2 + 0.04);
+    doorHandle.position.set(cabinetWidth * 0.28, cabinetHeight * 0.55, cabinetDepth / 2 + 0.035);
     machine.add(doorHandle);
 
     // Ventilation louvers on cabinet left
@@ -174,19 +174,13 @@
       machine.add(louver);
     }
 
-    // Orange Brand Accent Trim (horizontal racing stripe on cabinet)
-    var trimGeo = new THREE.BoxGeometry(cabinetWidth + 0.02, 0.06, cabinetDepth + 0.02);
+    // Industrial Orange Trim Line
+    var trimGeo = new THREE.BoxGeometry(cabinetWidth + 0.015, 0.05, cabinetDepth + 0.015);
     var trimMesh = new THREE.Mesh(trimGeo, orangeAccentMat);
     trimMesh.position.y = cabinetHeight * 0.88;
     machine.add(trimMesh);
 
-    // Brand Plate on Cabinet
-    var brandPlateGeo = new THREE.BoxGeometry(0.38, 0.1, 0.015);
-    var brandPlate = new THREE.Mesh(brandPlateGeo, darkSteelMat);
-    brandPlate.position.set(-0.25, cabinetHeight * 0.75, cabinetDepth / 2 + 0.02);
-    machine.add(brandPlate);
-
-    // 2. Corner Legs with Industrial Casters
+    // 2. Heavy-Duty Corner Leveling Casters
     var legPositions = [
       [-cabinetWidth / 2 + 0.08, -cabinetDepth / 2 + 0.08],
       [cabinetWidth / 2 - 0.08, -cabinetDepth / 2 + 0.08],
@@ -201,7 +195,7 @@
       legStem.castShadow = true;
       machine.add(legStem);
 
-      var wheelGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.05, 18);
+      var wheelGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.05, 16);
       wheelGeo.rotateZ(Math.PI / 2);
       var wheel = new THREE.Mesh(wheelGeo, blackRubberMat);
       wheel.position.set(pos[0], -0.15, pos[1]);
@@ -220,7 +214,7 @@
     tableMesh.receiveShadow = true;
     machine.add(tableMesh);
 
-    // Stainless Rollers on table bed
+    // Stainless Steel Rollers
     var rollerGroup = new THREE.Group();
     var numRollers = 10;
     var rollerSpacing = (tableDepth - 0.22) / (numRollers - 1);
@@ -232,7 +226,6 @@
       rollerGeo.rotateZ(Math.PI / 2);
       var rollerMesh = new THREE.Mesh(rollerGeo, chromeMat);
       var zPos = -tableDepth / 2 + 0.11 + r * rollerSpacing;
-      // Leave gap for central strapping slit
       if (Math.abs(zPos) > 0.08) {
         rollerMesh.position.set(0, cabinetHeight + tableThick + rollerRadius * 0.7, zPos);
         rollerMesh.castShadow = true;
@@ -241,7 +234,7 @@
     }
     machine.add(rollerGroup);
 
-    // Central Strapping Track Slit on Table
+    // Strapping Slot on Table
     var slitGeo = new THREE.BoxGeometry(tableWidth - 0.15, 0.012, 0.06);
     var slitMesh = new THREE.Mesh(slitGeo, darkSteelMat);
     slitMesh.position.set(0, cabinetHeight + tableThick + 0.006, 0);
@@ -254,28 +247,25 @@
     var archBeamDepth = 0.08;
     var archSpan = 1.25;
 
-    // Left arch column
     var leftColGeo = new THREE.BoxGeometry(archThickness, archHeight, archBeamDepth);
     var leftCol = new THREE.Mesh(leftColGeo, darkSteelMat);
     leftCol.position.set(-archSpan / 2, cabinetHeight + archHeight / 2, 0);
     leftCol.castShadow = true;
     archGroup.add(leftCol);
 
-    // Right arch column
     var rightColGeo = new THREE.BoxGeometry(archThickness, archHeight, archBeamDepth);
     var rightCol = new THREE.Mesh(rightColGeo, darkSteelMat);
     rightCol.position.set(archSpan / 2, cabinetHeight + archHeight / 2, 0);
     rightCol.castShadow = true;
     archGroup.add(rightCol);
 
-    // Top arch crossbeam
     var topBeamGeo = new THREE.BoxGeometry(archSpan + archThickness, archThickness, archBeamDepth);
     var topBeam = new THREE.Mesh(topBeamGeo, darkSteelMat);
     topBeam.position.set(0, cabinetHeight + archHeight - archThickness / 2, 0);
     topBeam.castShadow = true;
     archGroup.add(topBeam);
 
-    // Interior Arch Guide Track (Orange neon inner guide channel)
+    // Interior Arch Guide Track
     var innerTrackGeo = new THREE.BoxGeometry(archSpan - 0.03, 0.02, 0.02);
     var innerTrack = new THREE.Mesh(innerTrackGeo, orangeAccentMat);
     innerTrack.position.set(0, cabinetHeight + archHeight - archThickness - 0.01, 0);
@@ -290,68 +280,44 @@
     innerTrackRight.position.x = archSpan / 2 - archThickness / 2 - 0.01;
     archGroup.add(innerTrackRight);
 
-    // Arch Corner Brackets with orange accent chamfers
-    var bracketLeftGeo = new THREE.BoxGeometry(0.12, 0.12, archBeamDepth + 0.01);
-    var bracketLeft = new THREE.Mesh(bracketLeftGeo, orangeAccentMat);
-    bracketLeft.position.set(-archSpan / 2, cabinetHeight + archHeight - archThickness / 2, 0);
-    archGroup.add(bracketLeft);
-
-    var bracketRight = bracketLeft.clone();
-    bracketRight.position.x = archSpan / 2;
-    archGroup.add(bracketRight);
-
-    // 5. Dual-Color Status Beacon Light Tower on top of Arch
-    var beaconBaseGeo = new THREE.CylinderGeometry(0.035, 0.035, 0.06, 16);
+    // Top Beacon Tower Light
+    var beaconBaseGeo = new THREE.CylinderGeometry(0.032, 0.032, 0.05, 16);
     var beaconBase = new THREE.Mesh(beaconBaseGeo, chromeMat);
-    beaconBase.position.set(archSpan / 2, cabinetHeight + archHeight + 0.03, 0);
+    beaconBase.position.set(archSpan / 2, cabinetHeight + archHeight + 0.025, 0);
     archGroup.add(beaconBase);
 
-    var beaconRunGeo = new THREE.CylinderGeometry(0.028, 0.028, 0.07, 16);
+    var beaconRunGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.06, 16);
     var beaconRunMat = new THREE.MeshStandardMaterial({
-      color: 0x22c55e,
-      emissive: 0x22c55e,
-      emissiveIntensity: 0.95,
-      roughness: 0.1
+      color: 0x1f9d55,
+      emissive: 0x1f9d55,
+      emissiveIntensity: 0.6,
+      roughness: 0.2
     });
     var beaconRun = new THREE.Mesh(beaconRunGeo, beaconRunMat);
-    beaconRun.position.set(archSpan / 2, cabinetHeight + archHeight + 0.09, 0);
+    beaconRun.position.set(archSpan / 2, cabinetHeight + archHeight + 0.08, 0);
     archGroup.add(beaconRun);
-
-    var beaconAmberGeo = new THREE.CylinderGeometry(0.028, 0.028, 0.05, 16);
-    var beaconAmberMat = new THREE.MeshStandardMaterial({
-      color: 0xffaa00,
-      emissive: 0xff8c00,
-      emissiveIntensity: 0.6,
-      roughness: 0.1
-    });
-    var beaconAmber = new THREE.Mesh(beaconAmberGeo, beaconAmberMat);
-    beaconAmber.position.set(archSpan / 2, cabinetHeight + archHeight + 0.15, 0);
-    archGroup.add(beaconAmber);
 
     machine.add(archGroup);
 
-    // 6. Side-Mounted Strap Dispenser Reel Assembly
+    // 5. Side-Mounted Strap Dispenser Reel
     var reelGroup = new THREE.Group();
     var reelRadius = 0.38;
     var reelWidth = 0.16;
     var reelCenter = new THREE.Vector3(-cabinetWidth / 2 - 0.16, cabinetHeight * 0.46, 0);
 
-    // Spindle / Mounting Arm from cabinet
     var armGeo = new THREE.BoxGeometry(0.18, 0.08, 0.08);
     var armMesh = new THREE.Mesh(armGeo, darkSteelMat);
     armMesh.position.set(reelCenter.x + 0.08, reelCenter.y, reelCenter.z);
     armMesh.castShadow = true;
     reelGroup.add(armMesh);
 
-    // Spindle shaft
-    var spindleGeo = new THREE.CylinderGeometry(0.045, 0.045, reelWidth + 0.08, 20);
+    var spindleGeo = new THREE.CylinderGeometry(0.045, 0.045, reelWidth + 0.08, 18);
     spindleGeo.rotateZ(Math.PI / 2);
     var spindle = new THREE.Mesh(spindleGeo, chromeMat);
     spindle.position.copy(reelCenter);
     reelGroup.add(spindle);
 
-    // Outer Flange Discs (translucent polycarbonate look)
-    var flangeGeo = new THREE.CylinderGeometry(reelRadius, reelRadius, 0.012, 32);
+    var flangeGeo = new THREE.CylinderGeometry(reelRadius, reelRadius, 0.012, 28);
     flangeGeo.rotateZ(Math.PI / 2);
     var flangeOuter = new THREE.Mesh(flangeGeo, reelFlangeMat);
     flangeOuter.position.set(reelCenter.x - reelWidth / 2, reelCenter.y, reelCenter.z);
@@ -361,32 +327,16 @@
     flangeInner.position.set(reelCenter.x + reelWidth / 2, reelCenter.y, reelCenter.z);
     reelGroup.add(flangeInner);
 
-    // Polypropylene Strapping Coil (Bright Orange)
-    var coilInnerR = 0.14;
-    var coilOuterR = 0.34;
-    var coilGeo = new THREE.CylinderGeometry(coilOuterR, coilOuterR, reelWidth * 0.9, 32);
+    var coilGeo = new THREE.CylinderGeometry(0.34, 0.34, reelWidth * 0.9, 28);
     coilGeo.rotateZ(Math.PI / 2);
     var coilMesh = new THREE.Mesh(coilGeo, strapOrangeMat);
     coilMesh.position.copy(reelCenter);
     coilMesh.castShadow = true;
     reelGroup.add(coilMesh);
 
-    // Dancer arm & guide rollers
-    var dancerGeo = new THREE.CylinderGeometry(0.014, 0.014, 0.28, 12);
-    dancerGeo.rotateZ(Math.PI / 4);
-    var dancerArm = new THREE.Mesh(dancerGeo, chromeMat);
-    dancerArm.position.set(reelCenter.x, reelCenter.y + 0.32, reelCenter.z + 0.12);
-    reelGroup.add(dancerArm);
-
-    var guideRollerGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.05, 16);
-    guideRollerGeo.rotateZ(Math.PI / 2);
-    var guideRoller = new THREE.Mesh(guideRollerGeo, orangeAccentMat);
-    guideRoller.position.set(reelCenter.x + 0.09, reelCenter.y + 0.42, reelCenter.z + 0.2);
-    reelGroup.add(guideRoller);
-
     machine.add(reelGroup);
 
-    // 7. Operator Control Console on Front
+    // 6. Operator Control Console
     var consoleGroup = new THREE.Group();
     var consoleWidth = 0.52;
     var consoleHeight = 0.28;
@@ -399,26 +349,16 @@
     consoleMesh.castShadow = true;
     consoleGroup.add(consoleMesh);
 
-    // Backlit LCD Display Screen
     var lcdGeo = new THREE.BoxGeometry(0.24, 0.1, 0.015);
     var lcdMesh = new THREE.Mesh(lcdGeo, screenMat);
     lcdMesh.position.set(-0.1, 0.04, consoleDepth / 2 + 0.008);
     consoleMesh.add(lcdMesh);
 
-    // Green Start Button
     var startBtnGeo = new THREE.CylinderGeometry(0.026, 0.026, 0.025, 16);
     startBtnGeo.rotateX(Math.PI / 2);
     var startBtn = new THREE.Mesh(startBtnGeo, greenBtnMat);
     startBtn.position.set(0.12, 0.04, consoleDepth / 2 + 0.012);
     consoleMesh.add(startBtn);
-
-    // Emergency Stop Mushroom Button (Red on Yellow ring)
-    var eStopBaseGeo = new THREE.CylinderGeometry(0.038, 0.038, 0.018, 16);
-    eStopBaseGeo.rotateX(Math.PI / 2);
-    var eStopBaseMat = new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.4 });
-    var eStopBase = new THREE.Mesh(eStopBaseGeo, eStopBaseMat);
-    eStopBase.position.set(0.18, -0.05, consoleDepth / 2 + 0.01);
-    consoleMesh.add(eStopBase);
 
     var eStopCapGeo = new THREE.CylinderGeometry(0.042, 0.03, 0.03, 16);
     eStopCapGeo.rotateX(Math.PI / 2);
@@ -428,7 +368,7 @@
 
     machine.add(consoleGroup);
 
-    // 8. Packaged Carton Box on Table (Inside Arch)
+    // 7. Packaged Carton Box on Table Bed
     var boxGroup = new THREE.Group();
     var boxWidth = 0.58;
     var boxHeight = 0.46;
@@ -441,14 +381,7 @@
     boxMesh.receiveShadow = true;
     boxGroup.add(boxMesh);
 
-    // Box Tape Seam
-    var tapeGeo = new THREE.BoxGeometry(boxWidth + 0.004, 0.045, boxDepth + 0.004);
-    var tapeMat = new THREE.MeshStandardMaterial({ color: 0xd4a359, roughness: 0.5 });
-    var tape = new THREE.Mesh(tapeGeo, tapeMat);
-    tape.position.copy(boxMesh.position);
-    boxGroup.add(tape);
-
-    // Strapping band wrapped tightly around the box
+    // Strap band wrapped around the box
     var strapBandGeo = new THREE.BoxGeometry(0.03, boxHeight + 0.012, boxDepth + 0.012);
     var strapBand = new THREE.Mesh(strapBandGeo, strapOrangeMat);
     strapBand.position.copy(boxMesh.position);
@@ -456,15 +389,15 @@
 
     machine.add(boxGroup);
 
-    // 9. Soft Contact Floor Shadow Plane
+    // 8. Soft Ground Shadow Plane
     var shadowGeo = new THREE.PlaneGeometry(3.6, 2.8);
     var shadowCanvas = document.createElement('canvas');
     shadowCanvas.width = 256;
     shadowCanvas.height = 256;
     var sctx = shadowCanvas.getContext('2d');
     var sgrad = sctx.createRadialGradient(128, 128, 20, 128, 128, 120);
-    sgrad.addColorStop(0, 'rgba(0, 0, 0, 0.65)');
-    sgrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.3)');
+    sgrad.addColorStop(0, 'rgba(0, 0, 0, 0.55)');
+    sgrad.addColorStop(0.5, 'rgba(0, 0, 0, 0.2)');
     sgrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
     sctx.fillStyle = sgrad;
     sctx.fillRect(0, 0, 256, 256);
@@ -480,30 +413,10 @@
     floorShadow.position.y = -0.22;
     machine.add(floorShadow);
 
-    // 10. Subtle Floating Industrial Sparkles / Dust in 3D Space
-    var particleCount = 45;
-    var particleGeo = new THREE.BufferGeometry();
-    var particlePos = new Float32Array(particleCount * 3);
-    for (var p = 0; p < particleCount; p++) {
-      particlePos[p * 3] = (Math.random() - 0.5) * 5;
-      particlePos[p * 3 + 1] = Math.random() * 3 - 0.2;
-      particlePos[p * 3 + 2] = (Math.random() - 0.5) * 4;
-    }
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
-    var particleMat = new THREE.PointsMaterial({
-      color: 0xff9944,
-      size: 0.035,
-      transparent: true,
-      opacity: 0.65,
-      blending: THREE.AdditiveBlending
-    });
-    var particles = new THREE.Points(particleGeo, particleMat);
-    scene.add(particles);
-
-    // --- Cinematic Lights ---
-    // 1. Key Directional Light (Warm White)
-    var keyLight = new THREE.DirectionalLight(0xfff6ea, 2.4);
-    keyLight.position.set(4, 5, 4);
+    // --- Balanced Studio Lighting ---
+    // 1. Key Directional Light (Neutral Warm White)
+    var keyLight = new THREE.DirectionalLight(0xfff8f2, 2.0);
+    keyLight.position.set(3.8, 4.8, 3.8);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 1024;
     keyLight.shadow.mapSize.height = 1024;
@@ -516,28 +429,20 @@
     keyLight.shadow.bias = -0.001;
     scene.add(keyLight);
 
-    // 2. High-Impact Orange Rim Light (Back-Left)
-    var orangeRim = new THREE.SpotLight(0xff6b16, 4.8, 12, Math.PI / 3, 0.45);
-    orangeRim.position.set(-3.5, 3.2, -2.8);
-    orangeRim.target = machine;
-    scene.add(orangeRim);
-
-    // 3. Ambient / Fill Light
-    var hemiLight = new THREE.HemisphereLight(0x283244, 0x08090c, 1.35);
+    // 2. Soft Ambient / Fill Light
+    var hemiLight = new THREE.HemisphereLight(0x282d36, 0x101113, 1.25);
     scene.add(hemiLight);
 
-    // 4. Subtle Orange Table Spot
-    var orangeAccentLight = new THREE.PointLight(0xff7a28, 1.8, 4.5);
-    orangeAccentLight.position.set(0.6, 1.8, 1.4);
-    scene.add(orangeAccentLight);
+    // 3. Subtle Warm Industrial Rim Light (Restrained & Elegant)
+    var warmRim = new THREE.DirectionalLight(0xd96b32, 1.35);
+    warmRim.position.set(-3.2, 2.8, -2.6);
+    scene.add(warmRim);
 
-    // --- Interactive Mouse & Rotation Physics ---
+    // --- Subtle Parallax Physics ---
     var mouseX = 0, mouseY = 0;
-    var targetRotX = 0.05, targetRotY = -0.35;
-    var baseRotY = -0.35;
+    var targetRotX = 0.05, targetRotY = -0.32;
+    var baseRotY = -0.32;
     var time = 0;
-    var isHovered = false;
-    var isCycleActive = false;
 
     function onPointerMove(e) {
       var rect = container.getBoundingClientRect();
@@ -548,49 +453,20 @@
     }
 
     container.addEventListener('pointermove', onPointerMove);
-    container.addEventListener('pointerenter', function () { isHovered = true; });
     container.addEventListener('pointerleave', function () {
-      isHovered = false;
       mouseX = 0;
       mouseY = 0;
     });
 
-    // Trigger cycle animation on click or badge click
-    function triggerStrappingCycle() {
-      if (isCycleActive) return;
-      isCycleActive = true;
-
-      // Pulse reel rotation, beacon flash, arch glow
-      if (window.gsap) {
-        gsap.to(coilMesh.rotation, { x: coilMesh.rotation.x + Math.PI * 2, duration: 1.2, ease: 'power2.inOut' });
-        gsap.to(strapOrangeMat, { emissiveIntensity: 1.5, duration: 0.3, yoyo: true, repeat: 3 });
-        gsap.to(beaconRunMat, { emissiveIntensity: 2.2, duration: 0.2, yoyo: true, repeat: 5, onComplete: function () {
-          beaconRunMat.emissiveIntensity = 0.95;
-          strapOrangeMat.emissiveIntensity = 0.22;
-          isCycleActive = false;
-        }});
-      } else {
-        setTimeout(function () { isCycleActive = false; }, 1200);
-      }
-    }
-
-    container.addEventListener('click', triggerStrappingCycle);
-    window.SM = window.SM || {};
-    window.SM.trigger3DCycle = triggerStrappingCycle;
-
     // --- Entrance Animation with GSAP ---
     if (window.gsap && !reduce) {
-      machine.position.y = -1.2;
-      machine.rotation.y = -0.9;
-      machine.scale.set(0.7, 0.7, 0.7);
-      keyLight.intensity = 0;
-      orangeRim.intensity = 0;
+      machine.position.y = -0.8;
+      machine.rotation.y = -0.65;
+      machine.scale.set(0.85, 0.85, 0.85);
 
-      gsap.to(machine.position, { y: -0.3, duration: 1.6, ease: 'expo.out', delay: 0.3 });
-      gsap.to(machine.rotation, { y: baseRotY, duration: 1.8, ease: 'expo.out', delay: 0.3 });
-      gsap.to(machine.scale, { x: 1, y: 1, z: 1, duration: 1.6, ease: 'expo.out', delay: 0.3 });
-      gsap.to(keyLight, { intensity: 2.4, duration: 1.4, delay: 0.5 });
-      gsap.to(orangeRim, { intensity: 4.8, duration: 1.4, delay: 0.5 });
+      gsap.to(machine.position, { y: -0.3, duration: 1.4, ease: 'expo.out', delay: 0.2 });
+      gsap.to(machine.rotation, { y: baseRotY, duration: 1.5, ease: 'expo.out', delay: 0.2 });
+      gsap.to(machine.scale, { x: 1, y: 1, z: 1, duration: 1.4, ease: 'expo.out', delay: 0.2 });
     }
 
     // --- Viewport Visibility Observer ---
@@ -612,27 +488,19 @@
       var delta = clock.getDelta();
       time += delta;
 
-      // Gentle floating / idle breathing
-      var floatOffset = Math.sin(time * 1.5) * 0.035;
+      // Gentle breathing idle float
+      var floatOffset = Math.sin(time * 1.2) * 0.02;
       machine.position.y = -0.3 + floatOffset;
 
-      // Gentle coil slow rotation
-      coilMesh.rotation.x += 0.003;
+      // Slow continuous strap coil rotation
+      coilMesh.rotation.x += 0.002;
 
-      // Particles float upward
-      var positions = particleGeo.attributes.position.array;
-      for (var i = 1; i < particleCount * 3; i += 3) {
-        positions[i] += 0.0035;
-        if (positions[i] > 2.8) positions[i] = -0.2;
-      }
-      particleGeo.attributes.position.needsUpdate = true;
+      // Smooth mouse parallax with damping
+      targetRotY = baseRotY + mouseX * 0.35;
+      targetRotX = 0.05 - mouseY * 0.2;
 
-      // Smooth mouse parallax lerp
-      targetRotY = baseRotY + mouseX * 0.45;
-      targetRotX = 0.05 - mouseY * 0.28;
-
-      machine.rotation.y += (targetRotY - machine.rotation.y) * 0.06;
-      machine.rotation.x += (targetRotX - machine.rotation.x) * 0.06;
+      machine.rotation.y += (targetRotY - machine.rotation.y) * 0.05;
+      machine.rotation.x += (targetRotX - machine.rotation.x) * 0.05;
 
       renderer.render(scene, camera);
     }
@@ -642,8 +510,8 @@
     // --- Resize Handling ---
     function onResize() {
       if (!container) return;
-      var w = container.clientWidth || 560;
-      var h = container.clientHeight || 560;
+      var w = container.clientWidth || 540;
+      var h = container.clientHeight || 540;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
