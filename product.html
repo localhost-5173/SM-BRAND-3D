@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product — SM BRAND</title>
+<meta name="description" content="Product details and pricing from SM Brand.">
+<meta name="theme-color" content="#050505">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/sm.css">
+</head>
+<body class="">
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="curtain" aria-hidden="true"></div>
+<header class="header">
+  <div class="container">
+    <div class="nav">
+      <a href="index.html" class="brand" aria-label="SM Brand home"><span class="brand-mark">SM</span><span>SM BRAND<small>Packaging Solutions</small></span></a>
+      <nav class="nav-links" aria-label="Main"><a href="machines.html">Machines</a><a href="rolls.html">Rolls</a><a href="tools.html">Hand Tools</a><a href="service.html">Service</a><a href="contact.html">Contact</a></nav>
+      <div class="nav-right">
+        <a class="btn btn-primary btn-sm" data-magnetic href="contact.html#quote">Get Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="burger" aria-label="Menu" aria-expanded="false"><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" aria-hidden="false"><a href="machines.html">Machines</a><a href="rolls.html">Rolls</a><a href="tools.html">Hand Tools</a><a href="service.html">Service</a><a href="contact.html">Contact</a><a href="contact.html#quote" style="color:var(--orange)">Get Quote →</a></div>
+<main>
+
+<section class="page-hero" style="padding-bottom:10px">
+  <div class="container">
+    <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>›</span><span id="crumbCat">Products</span><span>›</span><span id="crumbName">…</span></nav>
+  </div>
+</section>
+<section class="section" style="padding-top:10px">
+  <div class="container">
+    <div id="loadingState" class="state">Loading product details…</div>
+    <div id="notFoundState" class="state" style="display:none">
+      <h2 class="h-section" style="margin-bottom:12px">Ye product nahi mila</h2>
+      <p style="margin-bottom:24px">Ho sakta hai hata diya gaya ho ya link purana ho.</p>
+      <a class="btn btn-primary" href="machines.html">Browse all products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div id="productDetail" style="display:none">
+      <div class="pd">
+        <div class="pd-img"><div class="plate"><img id="pImg" src="" alt=""></div></div>
+        <div>
+          <span class="eyebrow" id="pBadge" style="display:none"></span>
+          <h1 id="pName"></h1>
+          <div class="big-price" id="pPrice"></div>
+          <p class="spec" style="margin-top:8px;font-size:15px" id="pSpec"></p>
+          <p class="desc" id="pDescription"></p>
+          <div class="spec-list" id="pSpecs"></div>
+          <div class="hero-ctas">
+            <button class="btn btn-primary" id="pQuoteBtn" data-magnetic type="button">Get a Quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            <a class="btn btn-ghost" href="contact.html#quote">Ask a Question</a>
+          </div>
+          <div class="checks"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> In stock in Karachi</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> Warranty included</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg> Nationwide delivery</span></div>
+        </div>
+      </div>
+      <div id="related" style="margin-top:100px;display:none">
+        <div class="section-head left"><h2 class="h-section">Aap ko ye bhi pasand aa sakta hai</h2></div>
+        <div class="grid-3" id="relatedGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="brand"><span class="brand-mark">SM</span><span>SM BRAND<small>Packaging Solutions</small></span></a>
+        <p>Machines • Rolls • Tools • Service<br>Karachi – Lahore – Faisalabad</p>
+        <p style="color:var(--ink);font-weight:700">+92 310 2261760<br><a href="mailto:ar7776845@gmail.com" style="display:inline;padding:0">ar7776845@gmail.com</a><br><span style="font-weight:500;color:var(--muted)">Plot 14, S.I.T.E Area, Karachi</span></p>
+      </div>
+      <div><h5>Machines</h5><a href="machines.html">All Machines</a><a href="machines.html#compare">Compare Models</a><a href="tools.html">Battery Tools</a></div>
+      <div><h5>Consumables</h5><a href="rolls.html">PP Strapping Rolls</a><a href="rolls.html">PET Strapping Rolls</a><a href="rolls.html">Seals &amp; Buckles</a></div>
+      <div><h5>SM Brand</h5><a href="service.html">Service &amp; Spares</a><a href="contact.html#quote">Get a Quote</a><a href="contact.html">Contact</a></div>
+    </div>
+    <div class="giant" aria-hidden="true">SM BRAND</div>
+    <div class="copy"><span>© 2026 SM Brand Packaging Solutions. All rights reserved.</span><span>Made in Pakistan</span></div>
+  </div>
+</footer>
+<a class="wa" id="waFloat" href="https://wa.me/923102261760?text=Salam%20SM%20Brand,%20quote%20chahiye" target="_blank" rel="noopener" aria-label="WhatsApp quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2-5.4A8.4 8.4 0 1 1 21 11.5z"/><path d="M9 9.5c0 3 2.500 5.500 5.500 5.500l1.200-1.300-1.800-1-.9.6a3.500 3.500 0 0 1-1.700-1.700l.6-.9-1-1.800L9 9.500z" fill="currentColor" stroke="none"/></svg><span>WhatsApp Quote</span></a>
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/vendor/lenis.min.js"></script>
+<script src="assets/js/sm-config.js"></script>
+<script src="assets/js/sm-data.js"></script>
+<script src="assets/js/sm.js"></script>
+<script>
+(function(){
+  var CAT = {machines:['Strapping Machines','machines.html'], rolls:['Rolls & Consumables','rolls.html'], battery:['Battery Tools','tools.html'], hand:['Hand Tools','tools.html#hand']};
+  function show(s){
+    document.getElementById('loadingState').style.display = s==='loading'?'block':'none';
+    document.getElementById('notFoundState').style.display = s==='notfound'?'block':'none';
+    document.getElementById('productDetail').style.display = s==='ready'?'block':'none';
+  }
+  function render(p){
+    document.title = p.name + ' — SM BRAND';
+    var c = CAT[p.category] || ['Products','machines.html'];
+    var cc = document.getElementById('crumbCat'); cc.innerHTML = '<a href="'+SM.esc(c[1])+'">'+SM.esc(c[0])+'</a>';
+    document.getElementById('crumbName').textContent = p.name;
+    var img = document.getElementById('pImg');
+    img.onerror = function(){ img.onerror=null; img.src = SM.fallbackImg(p.name); };
+    img.src = window.SM_ASSET_URL(p.img) || SM.fallbackImg(p.name); img.alt = p.name;
+    var b = document.getElementById('pBadge'); if(p.badge){ b.textContent = p.badge; b.style.display='inline-flex'; }
+    document.getElementById('pName').textContent = p.name;
+    document.getElementById('pPrice').textContent = p.price_label || '';
+    document.getElementById('pSpec').textContent = p.spec || '';
+    document.getElementById('pDescription').textContent = p.description || 'Full specs, bulk pricing aur delivery ke liye WhatsApp pe rabta karein.';
+    var sp = document.getElementById('pSpecs');
+    if(p.specs && p.specs.length){
+      sp.innerHTML = p.specs.map(function(r){ return '<div><span>'+SM.esc(r[0])+'</span><b>'+SM.esc(r[1])+'</b></div>'; }).join('');
+    } else sp.style.display = 'none';
+    document.getElementById('pQuoteBtn').onclick = function(){ SM.quote(p.name); };
+    document.getElementById('waFloat').href = SM.waLink('Salam SM Brand, mujhe ' + p.name + ' ka quote chahiye.');
+    show('ready');
+    SM.bindFx();
+    SM.fetchProducts(p.category).then(function(list){
+      var rel = list.filter(function(x){ return x.slug !== p.slug; }).slice(0,3);
+      if(rel.length){ document.getElementById('related').style.display='block'; SM.renderCards(document.getElementById('relatedGrid'), rel); }
+    });
+    if(window.gsap){ gsap.from('.pd > *', {opacity:0, y:40, duration:1, ease:'expo.out', stagger:.15}); }
+  }
+  var key = new URLSearchParams(location.search).get('slug') || new URLSearchParams(location.search).get('id');
+  if(!key){ show('notfound'); return; }
+  SM.fetchProduct(key).then(function(p){ p ? render(p) : show('notfound'); });
+})();
+</script>
+</body>
+</html>
